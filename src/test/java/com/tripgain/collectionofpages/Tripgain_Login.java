@@ -67,7 +67,6 @@ public class Tripgain_Login {
 			if(homePageLogo.isDisplayed())
 			{
 				Log.ReportEvent("PASS", "Home Page is displayed Successful");
-				ScreenShots.takeScreenShot();
 				Thread.sleep(3000);
 			}
 			else

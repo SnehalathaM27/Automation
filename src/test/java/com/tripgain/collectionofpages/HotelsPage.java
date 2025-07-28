@@ -564,7 +564,7 @@ public class HotelsPage {
 	//--------------------------------------------------------------------------------------------
 
 
-    @FindBy(xpath = "//*[contains(@class,'tg-bs-date')]")
+    @FindBy(xpath = "(//*[contains(@class,'DayPickerInput input')])[1]")
     WebElement datePickerInput;
     
     
@@ -581,7 +581,7 @@ public class HotelsPage {
                 if(Date.contentEquals(MonthandYear))
                 {
                     Thread.sleep(4000);
-                    driver.findElement(By.xpath("//*[@class='react-datepicker__month-container']//*[text()='"+day+"']")).click();
+                    driver.findElement(By.xpath("c")).click();
                     
                     Thread.sleep(4000);
                 }else {
@@ -598,7 +598,6 @@ public class HotelsPage {
                     }
                 }
             }
-            
         	//--------------------------------------------------------------------------------------------
 
           //Method to Click on Check-Out  Date
@@ -927,5 +926,123 @@ public void addRoom(int roomcount, int adtCount , int chdCount) throws Interrupt
      }
      return dp[a.length()][b.length()];
  }
+ 
+ //--------------------------------------------------------------------------------------------------------------
+ 
+ //Method to validate hotels Ascending filter
+ 
+ public void ClickHotelSortDropdown() {
+	 WebElement Sortdropdown = driver.findElement(By.xpath("//label[text()='Sort']/parent::*/div"));
+	 Sortdropdown.click();
+ }
+ 
+ public void ClickHotelsAscending() {
+	 WebElement HotelsAscending = driver.findElement(By.xpath("//li[@data-value='NA']"));
+	 HotelsAscending.click();
+	 System.out.println("successfully clicked hotels ascending");
+	 
+ }
+ 
+ public void ClickHotelsPriceLowToHigh() throws InterruptedException {
+	 Thread.sleep(3000);
+	 WebElement HotelsPrice = driver.findElement(By.xpath("//li[@data-value='PA']"));
+	 HotelsPrice.click();
+	 System.out.println("successfully clicked hotels price low to high");
+	 
+ }
+ 
+ //Method to validate hotels prices from low to high
+ public void validateHotelsPriceLowToHigh(Log Log, ScreenShots screenShots) throws InterruptedException {
+	    try {
+	        List<WebElement> priceElements = driver.findElements(By.xpath("//div[@class='price-booking-rewards ']//*[contains(@class,'tg-hl-price')]"));
 
+	        List<Double> prices = new ArrayList<>();
+	        for (WebElement priceElement : priceElements) {
+	            String priceText = priceElement.getText().replaceAll("[^0-9.]", "");
+	            if (!priceText.isEmpty()) {
+	                double price = Double.parseDouble(priceText);
+	                prices.add(price);
+	                System.out.println("Price found: " + price);  // <-- print each price here
+	            }
+	        }
+
+	        boolean isSorted = true;
+	        for (int i = 1; i < prices.size(); i++) {
+	            if (prices.get(i) < prices.get(i - 1)) {  // check if current price is less than previous price
+	                isSorted = false; 
+	                break;
+	            }
+	        }
+
+	        if (isSorted) {
+	            Log.ReportEvent("PASS", "Prices are sorted from low to high.");
+	        } else {
+	            Log.ReportEvent("FAIL", "Prices are NOT sorted from low to high.");
+	            screenShots.takeScreenShot1();
+	        }
+
+	        Thread.sleep(2000);
+
+	    } catch (Exception e) {
+	        Log.ReportEvent("FAIL", "Exception during price validation: " + e.getMessage());
+	        screenShots.takeScreenShot1();
+	    }
+	}
+
+ //Method to click on hotels price high to low 
+ 
+ public void ClickHotelsPriceHighToLow() throws InterruptedException {
+	 Thread.sleep(3000);
+	 WebElement HotelsPrice = driver.findElement(By.xpath("//li[@data-value='PD']"));
+	 HotelsPrice.click();
+	 System.out.println("successfully clicked hotels price high to low");
+	 
+ }
+ 
+ public void validateHotelsPriceHighToLow(Log Log, ScreenShots screenShots) throws InterruptedException {
+	    try {
+	        List<WebElement> priceElements = driver.findElements(By.xpath("//div[@class='price-booking-rewards ']//*[contains(@class,'tg-hl-price')]"));
+
+	        List<Double> prices = new ArrayList<>();
+	        for (WebElement priceElement : priceElements) {
+	            String priceText = priceElement.getText().replaceAll("[^0-9.]", "");
+	            if (!priceText.isEmpty()) {
+	                double price = Double.parseDouble(priceText);
+	                prices.add(price);
+	                System.out.println("Price found: " + price);  // Print each price
+	            }
+	        }
+
+	        boolean isSortedDesc = true;
+	        for (int i = 1; i < prices.size(); i++) {
+	            // Check if current price is greater than previous price
+	            if (prices.get(i) > prices.get(i - 1)) {
+	                isSortedDesc = false;
+	                break;
+	            }
+	        }
+
+	        if (isSortedDesc) {
+	            Log.ReportEvent("PASS", "Prices are sorted from high to low.");
+	        } else {
+	            Log.ReportEvent("FAIL", "Prices are NOT sorted from high to low.");
+	            screenShots.takeScreenShot1();
+	        }
+
+	        Thread.sleep(2000);
+
+	    } catch (Exception e) {
+	        Log.ReportEvent("FAIL", "Exception during price validation: " + e.getMessage());
+	        screenShots.takeScreenShot1();
+	    }
+	}
+ 
+ //METHOD TO VALIDATE STAR ASCENDING
+	 public void clickStarAscending() throws InterruptedException {
+		 Thread.sleep(3000);
+		 WebElement starAscending = driver.findElement(By.xpath("//li[@data-value='SA']"));
+		 starAscending.click();
+		 System.out.println("successfully clicked star ascending");
+	 }
+ 
 }

@@ -38,7 +38,7 @@ public class Tripgain_FutureDates {
 	    }
 
 	    public Map<String, DateResult> furtherDate() {
-	        WebElement dateElement = driver.findElement(By.xpath("//div[@class='react-datepicker__input-container']//input"));
+	        WebElement dateElement = driver.findElement(By.xpath("//*[@class='DayPickerInput input']"));
 	        String currentDateStr = dateElement.getAttribute("value"); // e.g., "30th-May-2025"
 
 	        // Clean suffixes: "th", "st", "nd", "rd"

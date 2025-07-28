@@ -6,7 +6,6 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.tripgain.collectionofpages.*;
 import com.tripgain.common.*;
-import com.tripgain.common.Tripgain_FutureDates;
 import com.tripgain.testscripts.BaseClass;
 
 import org.openqa.selenium.By;
@@ -22,7 +21,7 @@ import java.time.Duration;
 import java.util.Map;
 
 @Listeners(TestListener.class)
-public class TCH_04_VerifySearchFunctionalityForHotelsForTenDays extends BaseClass {
+public class TCH_06_VerifyHotelsPriceHighToLow extends BaseClass {
 
 	WebDriver driver;    
 	ExtentReports extent;
@@ -43,19 +42,18 @@ public class TCH_04_VerifySearchFunctionalityForHotelsForTenDays extends BaseCla
 		try{
 			String userName1 = excelData.get("UserName");
 			String password1 = excelData.get("Password");
-//		String[] dates=GenerateDates.GenerateDatesToSelectFlights();
-//			String fromDate=dates[0];
-//			String returnDate=dates[1];
-//			String fromMonthYear=dates[2];
-//			String returnMonthYear=dates[3];
+		String[] dates=GenerateDates.GenerateDatesToSelectFlights();
+			String fromDate=dates[0];
+			String returnDate=dates[1];
+			String fromMonthYear=dates[2];
+			String returnMonthYear=dates[3];
 			number++;
 			
 						String origin = excelData.get("Origin");
 						int roomcount = Integer.parseInt(excelData.get("Roomcount"));
 						int adtcount = Integer.parseInt(excelData.get("AdtCount"));
 						int chdcount = Integer.parseInt(excelData.get("ChdCount")); 
-						int hotelIndex = Integer.parseInt(excelData.get("HotelIndex")); 
-						int roomIndex = Integer.parseInt(excelData.get("RoomIndex")); 
+						
 
 						
 
@@ -82,24 +80,12 @@ public class TCH_04_VerifySearchFunctionalityForHotelsForTenDays extends BaseCla
 Thread.sleep(2000);
 Hotels_Page.hotelClick();
 Hotels_Page.validateHomePgaeIsDisplayed(Log, screenShots);
-
-Thread.sleep(2000);
-Tripgain_FutureDates futureDates = new Tripgain_FutureDates(driver);
-Map<String, Tripgain_FutureDates.DateResult> dateResults = futureDates.furtherDate();
-Tripgain_FutureDates.DateResult date10 = dateResults.get("datePlus10");
-String fromMonthYear = date10.month + " " + date10.year;
-Tripgain_FutureDates.DateResult date20 = dateResults.get("datePlus20");
-String returnMonthYear = date20.month + " " + date20.year;
 //Hotels_Page.enterCityOrHotelName(origin);
 Hotels_Page.enterCityOrHotelName(origin);
-System.out.println(date10.day);
-System.out.println(fromMonthYear);
-System.out.println(date20.day);
-System.out.println(returnMonthYear);
-Hotels_Page.selectDate(date10.day, fromMonthYear);
-Hotels_Page.selectReturnDate(date20.day, returnMonthYear);
 
-
+Hotels_Page.selectDate(fromDate, fromMonthYear);
+Hotels_Page.selectReturnDate(returnDate, returnMonthYear);
+            
 Hotels_Page.addRoom(roomcount,adtcount,chdcount); 
       long startTime = System.currentTimeMillis();
 
@@ -118,32 +104,12 @@ Hotels_Page.addRoom(roomcount,adtcount,chdcount);
 	
 	//Method for to validate result page hotel page is displaying or not 
 		Hotels_Page.waitForResultPageHotelGrid(Log, screenShots);
-		//Method for to get the hotel text based on user selected index
-		   String selectedHotelName = Hotels_Page.getSelectedHotelNameTextBasedOnIndex(hotelIndex, Log, screenShots);
-			//Method for to get the next page hotel text 
-		    String nextPageHotelName = Hotels_Page.getHotelNameTextOnNextPage(Log, screenShots);
-		    //Method for to validate hotel grid is displaying or not
-		    Hotels_Page.waitForSelectedNextPageHotelGrid(Log, screenShots);
-		    //Method to validate hotels names text  from result page to next page
-		    Hotels_Page.compareHotelNames(selectedHotelName, nextPageHotelName, Log, screenShots);
-	    
-			Thread.sleep(2000);
-			//Method to click on choose your room button
-			Hotels_Page.clickChooseyourRoom();
-			Thread.sleep(2000);
-			
-			//Hotels_Page.ClickOnSelectAndContinueBasedOnRoomsSelected(roomIndex, Log, screenShots);
-			
-			//Methods for to get  selectRoomAndContinue hotels text based on index
-			String selectedRoomText = Hotels_Page.selectRoomAndContinueBasedOnIndex(roomIndex, Log, screenShots);
-			
-			//Methods for to validate validateReviewYourBookingText
-		    String bookingRoomText = Hotels_Page.validateReviewYourBookingText(Log, screenShots);
-		    
-			//Methods for to validate compareRoomNames
-           Hotels_Page.compareRoomNames(selectedRoomText, bookingRoomText, Log, screenShots);
-			
-
+		Hotels_Page.ClickHotelSortDropdown();
+		Hotels_Page.ClickHotelsPriceHighToLow();
+		Hotels_Page.validateHotelsPriceHighToLow(Log, screenShots);
+		   
+		   
+				
 		}catch (Exception e)
 		{
 			Log.ReportEvent("FAIL", "Occurred Exception"+ e.getMessage());

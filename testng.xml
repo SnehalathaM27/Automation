@@ -24,10 +24,10 @@
    <test name="test2">
    <parameter name="browser" value="chrome"/>
     <classes>
-    <class name="com.tripgain.roundtriptestscripts.TCRT_04_VerifySearchFunctionalityForRoundTripForDomesticFiveDays"/>
+    <!--class name="com.tripgain.roundtriptestscripts.TCRT_04_VerifySearchFunctionalityForRoundTripForDomesticFiveDays"/>
     <class name="com.tripgain.roundtriptestscripts.TCRT_02_VerifySearchFunctionalityForRoundTripForDomesticTwoDays"/>
      <class name="com.tripgain.roundtriptestscripts.TCRT_03_VerifySearchFunctionalityForRoundTripForInternationalFiveDays"/>
-     <class name="com.tripgain.roundtriptestscripts.TCRT_01_VerifySearchFunctionalityForRoundTripForInternationalTwoDays"/>
+     <class name="com.tripgain.roundtriptestscripts.TCRT_01_VerifySearchFunctionalityForRoundTripForInternationalTwoDays"/-->
      
     </classes>
   </test>
@@ -47,7 +47,10 @@
   <classes>
        <!--class name="com.tripgain.hotaltestscripts.TCH_02_VerifySearchFunctionalityForHotelsForTwoDays"/>
         <class name="com.tripgain.hotaltestscripts.TCH_03_VerifySearchFunctionalityForHotelsForFiveDays"/>
-       <class name="com.tripgain.hotaltestscripts.TCH_04_VerifySearchFunctionalityForHotelsForTenDays"/-->     
+       <class name="com.tripgain.hotaltestscripts.TCH_04_VerifySearchFunctionalityForHotelsForTenDays"/>   
+                 <class name="com.tripgain.hotaltestscripts.TCH_05_VerifyHotelsPriceLowToHigh"/>
+                 <class name="com.tripgain.hotaltestscripts.TCH_06_VerifyHotelsPriceHighToLow"/-->
+
   </classes>
  </test>
  
@@ -60,4 +63,26 @@
       
   </classes>
  </test>
+ 
+  <test name="test6">
+  <parameter name="browser" value="chrome"/>
+  <classes>
+  <!--class name="com.tripgain.trainScripts.TCT_01_VerifySearchFunctionalityForTrainsForFiveDays"/>     
+  <class name="com.tripgain.trainScripts.TCT_02_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_03_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_04_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_05_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_06_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_07_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_08_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_09_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_10_VerifySearchFunctionalityForTrains"/>     
+<class name="com.tripgain.trainScripts.TCT_11_VerifySearchFunctionalityForTrainsForTwodays"/>     
+<class name="com.tripgain.trainScripts.TCT_12_VerifySearchFunctionalityForTrainsForTenDays"/-->     
+
+
+      
+  </classes>
+ </test>
+ 
 </suite> <!-- Suite -->
